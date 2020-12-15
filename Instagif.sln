@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Instagif", "Instagif\Instagif.csproj", "{53E50704-31F0-4793-BCBD-0D25A894D65A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53E50704-31F0-4793-BCBD-0D25A894D65A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E50704-31F0-4793-BCBD-0D25A894D65A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E50704-31F0-4793-BCBD-0D25A894D65A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E50704-31F0-4793-BCBD-0D25A894D65A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {211A013D-347E-4076-9394-7CD701D8E9F7}
+	EndGlobalSection
+EndGlobal

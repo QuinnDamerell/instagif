@@ -1,0 +1,75 @@
+﻿<fw:AcrylicWindow x:Class="Instagif.GifSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:Instagif"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="85" Width="800">
+    <Window.Resources>
+        <Style x:Key="placeholder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="FocusManager.FocusedElement" TargetName="textSource" Value="{Binding RelativeSource={RelativeSource Self}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        <Grid>
+                            <TextBox Text="{Binding Path=Text,
+                                                RelativeSource={RelativeSource TemplatedParent}, 
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 x:Name="textSource" CaretBrush="{TemplateBinding Foreground}"
+                                 Background="Transparent" FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}"
+                                 Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" FontSize="{TemplateBinding FontSize}" Padding="{TemplateBinding Padding}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="DarkGray"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Image x:Key="settingsIcon" Source="Icons\settings.png"/>
+
+    </Window.Resources>
+    
+    <Grid Margin="20,20,20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid fw:PointerTracker.Enabled="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="ui_search" Background="#BB3C3C3C" Padding="8" FontSize="20" TextChanged="Search_TextChanged" Foreground="White" PreviewKeyDown="Search_PreviewKeyDown" Style="{StaticResource placeholder}"/>
+            <!--<Button Margin="10,0,0,0" Content="{StaticResource settingsIcon}" Grid.Column="1" Style="{DynamicResource  ButtonRevealStyle}" Width="50" Padding="12"></Button>-->
+        </Grid>
+        <Grid x:Name="ui_content" Grid.Row="1" Margin="20">
+            <TextBlock x:Name="ui_error" Text="No Results" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="18" Visibility="Collapsed"></TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <MediaElement x:Name="ui_result" Grid.Column="1" MediaEnded="ui_MediaEnded" UnloadedBehavior="Manual" />
+            </Grid>
+        </Grid>
+    </Grid>
+    
+</fw:AcrylicWindow>
