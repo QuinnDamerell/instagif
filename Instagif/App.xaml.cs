@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace Instagif
 {
@@ -65,8 +67,23 @@ namespace Instagif
             m_selector.ShowInTaskbar = false;
             m_selector.Show();
             m_selector.Activate();
-            m_selector.Focus();
+            m_selector.Focus();  
             m_selector.Topmost = true;
+            m_selector.Topmost = false;
+            m_selector.Topmost = true;
+
+            // Try to force focus.
+            try
+            {
+                Window window = Window.GetWindow(m_selector);
+                var wih = new WindowInteropHelper(window);
+                IntPtr hWnd = wih.Handle;
+                SwitchToThisWindow(hWnd, true);
+            }
+            catch { }
         }
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern void SwitchToThisWindow(IntPtr hwnd, bool unkonwn);
     }
 }
